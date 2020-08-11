@@ -1,6 +1,15 @@
+let form = document.querySelector("form");
+form.addEventListener("submit", function(e) {
+  checkThis(e);
+  e.preventDefault();
+});
+
 const clientID = 'EigRCiVF8VURsycALQfO4ud80VysLkWYbJplf5RcZh0';
 const collectionID = '11710653';
 const URL = `https://api.unsplash.com/photos/random?collections=${collectionID}&client_id=${clientID}`;
+let randImgId;
+let descriptionText;
+let userInputId;
 
 const grabContent = async function() {
     const response = await fetch(URL);
@@ -10,15 +19,21 @@ const grabContent = async function() {
 }
 
 
-let divTag = document.querySelector('div#descriptionText');
+let divTag = document.querySelector('div#descText');
 
 grabContent().then(data => {
-    divTag.innerHTML = data.alt_description;
+    descriptionText = data.alt_description;
+    randImgId = data.id;
+    divTag.innerHTML = descriptionText + "<br> Correct Image Id:" + randImgId;
+    console.log(descriptionText);
     
-    
-    if (data.id == USERURL) {
-        YAY YOU GUSSED IT
+});
+
+function checkThis(event) {
+    userInputId = event.srcElement[0].value.split('/').pop();
+    if (userInputId == randImgId) {
+      document.querySelector('body').style.backgroundColor = "green";
     } else {
-        NOPE
+      document.querySelector('body').style.backgroundColor = "red";
     }
-})
+}
