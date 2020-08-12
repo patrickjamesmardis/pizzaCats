@@ -5,9 +5,14 @@ form.addEventListener("submit", function(e) {
   e.preventDefault();
 });
 
-const clientID = 'kdZ9KZUR_mOq07RxfoU8Hf0Phm-uR0xXYX8DQUf99TY';
+
+
+
+
+const clientIDS = ['xmDek0kpX34wNIPlo5ycILQkfW9STveVgjfpd6g_jos', 'EigRCiVF8VURsycALQfO4ud80VysLkWYbJplf5RcZh0', 'kdZ9KZUR_mOq07RxfoU8Hf0Phm-uR0xXYX8DQUf99TY', '3cj0DSNrv4NoOC9knFqZ2svGM6WanvDlWItYS84rDio', '8W-BD97jMJqv7xBXvQZp3vbDILhyBlLpBpvo2Qi90Xc', 'pfdTsxP_d22ifotijVSuf4ILRGw_rYwynK4MejlUZJk', '2HdOQu2EmCstUcP8xt4ZslWmK-Ib0rI0FiFE9H4qNBo', 'KKvesqQTBU8sPgV5G1t1WY4ddJa7gP1xOsFeVInsoVs', 'wU3m-RIiacyPL9Y4wYCvq6QLMJ3eD1I-Tk0XqYJGs58', 'hf97glauGLqwxeGmgngPkiwb9CWsC74uVqGWJUJ6Il0'];
+let cIDIndex = 0;
 const collectionID = '11710653';
-const URL = `https://api.unsplash.com/photos/random?collections=${collectionID}&client_id=${clientID}`;
+let URL = `https://api.unsplash.com/photos/random?collections=${collectionID}&client_id=${clientIDS[cIDIndex]}`;
 const pizzaTag = document.querySelector('div.pizza2');
 const bodyTag = document.querySelector('body');
 const startTextTag = document.querySelector('h2.startText');
@@ -24,7 +29,6 @@ let readyToStart = false;
 const grabContent = async function() {
     const response = await fetch(URL);
     const data = await response.json();
-
     return data;
 }
 
@@ -32,14 +36,25 @@ const grabContent = async function() {
 let descTag = document.querySelector('h2#descText');
 
 function getImage() {
+  grabContent().then(data => {
+    descriptionText = data.alt_description;
+    randImgId = data.id;
+    photoURL = data.urls.thumb;
+    descTag.innerHTML = descriptionText;
+  }).catch(function() {
+    cIDIndex++;
+    URL = `https://api.unsplash.com/photos/random?collections=${collectionID}&client_id=${clientIDS[cIDIndex]}`;
+    getImage();
 
-      grabContent().then(data => {
-      descriptionText = data.alt_description;
-      randImgId = data.id;
-      photoURL = data.urls.thumb;
-      descTag.innerHTML = descriptionText;
-    });
-  
+    if(cIDIndex >= clientIDS.length) {
+      swal({
+        title: "Sorry!",
+        text: "It looks like we've used all of our Unsplash API calls for this hour. Try again in a bit.",
+        button: false,
+        icon: "error"
+      });
+    }
+  });
 }
 
 function checkThis(event) {
