@@ -53,16 +53,23 @@ function checkThis(event) {
       currentTopping++;
       if(currentTopping != numToppings) {getImage();}
       if(currentTopping == numToppings) {
-        descTag.innerHTML = "";
-        startTextTag.style.display = "block";
-        startTextTag.innerHTML = "Congrats! You found all the ingredients to make the cat's pizza!"
-        setTimeout(function(){
-            startTextTag.style.opacity = 1;
-            descTag.innerHTML = "";
-        }, 300);
+        alert("Congrats! You found all the ingredients to make the cat's pizza!");
+        alert("Ready to start again?");
+        while(pizzaTag.firstChild) {
+          pizzaTag.removeChild(pizzaTag.firstChild);
+        }
+        currentTopping = 0;
+        getImage();
+        let newCat = catTag.cloneNode(true);
+        catTag.parentNode.replaceChild(newCat, catTag);
       }
     } else {
       bodyTag.style.backgroundColor = "red";
+      setTimeout(function(){
+        alert("Incorrect image. Try again");
+        bodyTag.style.backgroundColor = "#575761";
+      }, 1)
+      
     }
 }
 
@@ -70,7 +77,15 @@ function checkThis(event) {
 document.querySelector("span.start").addEventListener("click", function () {
     catTag.classList.add("animate");
     setTimeout(function() {
-      alert("The cat starved")
+      alert("The cat starved");
+      alert("Ready to start again?");
+      while(pizzaTag.firstChild) {
+        pizzaTag.removeChild(pizzaTag.firstChild);
+      }
+      currentTopping = 0;
+      getImage();
+      let newCat = catTag.cloneNode(true);
+      catTag.parentNode.replaceChild(newCat, catTag);
     }, 150000);
     startTextTag.style.opacity = 0;
     pizzaTag.style.display = "block";
