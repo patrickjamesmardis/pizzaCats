@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+@keyframes sizeDown {
+  0% { width: 400px; }
+  100% { width: 5px; }
+}
+
+body {
+  background-color: #575761;
+}
+
+img.cat {
+  width: 400px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+img.cat.animate {
+  animation-name: sizeDown;
+  animation-duration: 150000ms;
+}
+
+
+input {
+  margin-top: 10px;
+  height: 30px;
+  font-family: 'Montserrat';
+  font-size: 14px;
+  display: none;
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s;
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+h2.description {
+  font-size: 14px;
+}
+
+div.pizza {
+  background-color: #FFFDD0;
+  width: 400px;
+  height: 400px;
+  border-radius: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:  40px;
+  padding-top: 25px;
+  padding-left: 25px;
+  /*
+  display: none;
+  opacity: 0;
+  */
+  transition: opacity 0.3s ease-in-out;
+}
+div.pizza2 {
+  background-color: #9b1b30;
+  width: 350px;
+  height: 350px;
+  border-radius: 100%;
+/*
+  display: none;
+  opacity: 0;
+  */
+  transition: opacity 0.3s ease-in-out;
+}
+
+div.pizza img {
+  max-width: 100px;
+  max-height: 100px;
+  margin-top: 60px;
+  margin-left: 60px;
+}
+
+div.note {
+  position: relative;
+  background-color: #e4fde1;
+  width: 300px;
+  height: 350px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  font-family: 'Rock Salt';
+  text-align: center;
+  padding: 10px 5px;
+}
+
+h1 {
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+h2.startText {
+  font-family: 'Montserrat';
+  line-height: 1.7;
+  font-size: 15px;
+  transition: opacity ease-in-out 0.3s;
+}
+
+a, 
+span.start {
+  text-decoration: none;
+  color: #000;
+  background-color: #8aCB88;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+a:hover, 
+span.start:hover {
+  color: #fff;
+  transition: color 0.2s;
+  cursor: pointer;
+
+}
