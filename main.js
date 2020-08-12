@@ -53,21 +53,32 @@ function checkThis(event) {
       currentTopping++;
       if(currentTopping != numToppings) {getImage();}
       if(currentTopping == numToppings) {
-        alert("Congrats! You found all the ingredients to make the cat's pizza!");
-        alert("Ready to start again?");
-        while(pizzaTag.firstChild) {
-          pizzaTag.removeChild(pizzaTag.firstChild);
-        }
-        currentTopping = 0;
-        getImage();
-        let newCat = catTag.cloneNode(true);
-        catTag.parentNode.replaceChild(newCat, catTag);
+        swal({
+          title: "Congrats!",
+          text: "You found all the ingredients to make the cat's pizza!",
+          icon: "success",
+          button: "Next"
+        }).then(value => {
+          if(value) {
+            swal({
+              text: "Ready to play again?", 
+              button: "Yes!"
+            }).then(val => {
+              if(val) {
+                location.reload();
+              }
+            });
+          }
+        });
       }
     } else {
-      bodyTag.style.backgroundColor = "red";
       setTimeout(function(){
-        alert("Incorrect image. Try again");
-        bodyTag.style.backgroundColor = "#575761";
+        swal({
+          title: "Oops!",
+          text: "Looks like you grabbed the wrong ingredient.",
+          icon: "error",
+          button: "Try again"
+        });
       }, 1)
       
     }
@@ -77,15 +88,16 @@ function checkThis(event) {
 document.querySelector("span.start").addEventListener("click", function () {
     catTag.classList.add("animate");
     setTimeout(function() {
-      alert("The cat starved");
-      alert("Ready to start again?");
-      while(pizzaTag.firstChild) {
-        pizzaTag.removeChild(pizzaTag.firstChild);
-      }
-      currentTopping = 0;
-      getImage();
-      let newCat = catTag.cloneNode(true);
-      catTag.parentNode.replaceChild(newCat, catTag);
+      swal({
+        title: "Uh oh!",
+        text: "The cat starved waiting on their pizza",
+        icon: "error",
+        button: "Try again"
+      }).then(value => {
+        if(value) {
+          location.reload();
+        }
+      })
     }, 150000);
     startTextTag.style.opacity = 0;
     pizzaTag.style.display = "block";
